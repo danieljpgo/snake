@@ -1,13 +1,14 @@
 import React from 'react';
-import Table from './components/Table';
-import './styles.css';
+import { ThemeProvider } from 'styled-components';
+import theme from './styles/theme';
+import GlobalStyles from './styles/global';
+import Home from './pages/Home';
 
-const App = () => {
-  return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: '100vh' }}>
-      <Table />
-    </div>
-  );
-}
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <GlobalStyles />
+    <Home />
+  </ThemeProvider>
+);
 
 export default App;
