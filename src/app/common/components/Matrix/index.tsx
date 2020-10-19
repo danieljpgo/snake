@@ -13,6 +13,8 @@ interface Props {
 const Matrix = (props: Props) => {
   const { size, matrix, snake } = props;
 
+  console.log('matrix');
+
   return (
     <Container $size={size}>
       {matrix.map((col, i) => (
