@@ -1,1 +1,5 @@
-export type Snake = boolean[][];
+export type Snake = Part[][];
+
+interface Part {
+  position: number;
+}

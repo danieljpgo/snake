@@ -15,34 +15,80 @@ const matrix: Matrix = Array
 
 const snakeInit: Snake = Array
   .from({ length: size }, (_, k) => Array
-    .from({ length: size }, (_, x) => (!!!k && !!!x) || false));
+    .from({ length: size }, (_, x) => {
+      return {
+        position: (x === size / 2 && k === size / 2) ? 0 : -1
+      }
+    }));
 
 const Home = () => {
   const [snake, setSnake] = useState<Snake>(snakeInit);
   const [run, setRun] = useState(true);
 
+  const arrow = 'bottom';
+
   useInterval(() => {
-    // setSnake((prev) => {
-    //   const index = prev[0].findIndex((s) => s)
-    //   console.log(index);
+    setSnake((prev) => {
+      const [x, y] = prev.reduce((acc, value, i) => {
+        const head = value.findIndex((row) => row.position === 0);
+        if (head > -1) {
+          return [i, head];
+        }
+        return acc;
+      }, [-1, -1]);
 
-    //   const a = [...prev]
-    //   a[0][index] = false;
-    //   if (index === prev.length - 1) {
-    //     a[0][0] = true;
-    //   } else {
-    //     a[0][index + 1] = true;
-    //   }
+      if (arrow === 'bottom') {
+        return prev.map((col, i) => {
+          if (i === 0 && x === (prev.length - 1)) {
+            return col.map((row, j) => {
+              if (j === 0 && y === (col.length - 1)) {
+                return {
+                  position: 0
+                };
+              }
+              if (j === y) {
+                return {
+                  position: 0
+                };
+              }
+              return row;
+            })
+          }
 
-    //   return a;
-    // })
+          if (x === i) {
+            return col.map((row, j) => {
+              if (y === j) {
+                return {
+                  position: -1
+                };
+              }
+              return row;
+            });
+          }
 
+          if ((x + 1) === i) {
+            return col.map((row, j) => {
+              if (y === j) {
+                return {
+                  position: 0
+                };
+              }
+              return row;
+            });
+          }
+          return col;
+        })
+      }
+
+      return prev;
+    })
   }, (run ? ticker : null));
-
-  console.log('Home');
 
   return (
     <Container>
+      <button onClick={() => setRun((prev) => !prev)} >
+        {run ? 'stop' : 'play'}
+      </button>
       <MatrixContainer
         size={size}
         matrix={matrix}
