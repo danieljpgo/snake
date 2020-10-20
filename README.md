@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+<div align="center" >
+  <!-- <img
+    alt="swr"
+    title="swr"
+    src=".github/swr-logo.png"
+    height="110px"
+    />
+  <img
+    alt="react"
+    title="react"
+    src=".github/react-logo.png"
+    width="180px" /> -->
+</div>
+&nbsp;
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1> Snake </h1>
 
-## Available Scripts
+<p align="left">
+   <a href="https://github.com/danieljpgo">
+      <img
+        alt="author"
+        src="https://img.shields.io/badge/author-danieljpgo-04D36190?style=flat&labelColor=000000"
+      />
+   </a>
+   <img
+      alt="languages"
+      src="https://img.shields.io/github/languages/count/danieljpgo/snake?color=04D36190&style=flat&labelColor=000000"
+   />
+   <a href="https://github.com/danieljpgo/snake/graphs/contributors">
+      <img
+        alt="contributors"
+        src="https://img.shields.io/github/stars/danieljpgo/snake?color=04D36190&style=flat&labelColor=000000"/>
+   </a>
+    <a href="https://github.com/danieljpgo/snake/network/members">
+      <img
+         alt="forks"
+         src="https://img.shields.io/github/forks/danieljpgo/snake?color=04D36190&style=flat&labelColor=000000"/>
+   </a>
+     <img alt="License" src="https://img.shields.io/badge/license-MIT-04D36190?style=flat&labelColor=000000">
+</p>
 
-In the project directory, you can run:
+> todo :snake:
 
-### `yarn start`
+&nbsp;
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<div align="center">
+   <a href="#project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+   <a href="#features">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+   <a href="#technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+   <a href="#getting-started">Getting Started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+   <a href="#license">License</a>
+</div>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<div align="center">
+   <!-- <img
+      alt="SWR useFetch Hook"
+      title="SWR useFetch Hook"
+      width="870px"
+      src=".github/code.png"
+   /> -->
+</div>
 
-### `yarn test`
+&nbsp;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project
+:construction: todo :construction:
 
-### `yarn build`
+## Features
+:construction: todo :construction:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies
+The main technologies used to develop the project were:
+- [React](https://reactjs.org/)
+- [Styled Component](https://styled-components.com/)
+- [Typescript](https://www.typescriptlang.org/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This project was bootstrapped with:
+- [create-react-app](https://github.com/facebook/create-react-app)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
+First of all, you may clone this project:
+```
+git clone https://github.com/danieljpgo/snake.git
+```
+Run the following scripts in order to execute the application:
+```
+// install dependencies
+yarn install
 
-### `yarn eject`
+// start the application
+yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## License
+This project is under the [MIT license](https://github.com/danieljpgo/snake/blob/master/LICENSE).
+<div>Released in 2020.</div>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Make with ❤️ by [Daniel Jorge](https://github.com/danieljpgo)
