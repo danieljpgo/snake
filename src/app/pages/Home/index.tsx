@@ -5,7 +5,7 @@ import { Snake } from '../../common/types/snake';
 import { Matrix } from '../../common/types/matrix';
 import useInterval from '../../common/hooks/use-interval';
 
-const ticker = 1000;
+const ticker = 300;
 const size = 10;
 const matrix: Matrix = Array
   .from({ length: size }, (_, k) => Array
@@ -23,9 +23,8 @@ const snakeInit: Snake = Array
 
 const Home = () => {
   const [snake, setSnake] = useState<Snake>(snakeInit);
+  const [arrow, setArrow] = useState<'right' | 'bottom'>('right');
   const [run, setRun] = useState(true);
-
-  const arrow = 'bottom';
 
   useInterval(() => {
     setSnake((prev) => {
@@ -36,6 +35,32 @@ const Home = () => {
         }
         return acc;
       }, [-1, -1]);
+
+      if (arrow === 'right') {
+        return prev.map((col, i) => {
+          if (i === x) {
+            return col.map((row, j) => {
+              if (j === 0 && y === (col.length - 1)) {
+                return {
+                  position: 0
+                };
+              }
+              if (y === j) {
+                return {
+                  position: -1
+                };
+              }
+              if ((y + 1) === j) {
+                return {
+                  position: 0
+                };
+              }
+              return row;
+            });
+          }
+          return col;
+        })
+      }
 
       if (arrow === 'bottom') {
         return prev.map((col, i) => {
@@ -88,6 +113,9 @@ const Home = () => {
     <Container>
       <button onClick={() => setRun((prev) => !prev)} >
         {run ? 'stop' : 'play'}
+      </button>
+      <button onClick={() => setArrow((prev) => prev === 'bottom' ? 'right' : 'bottom')} >
+        {run ? 'right' : 'bottom'}
       </button>
       <MatrixContainer
         size={size}
