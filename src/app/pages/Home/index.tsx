@@ -4,6 +4,7 @@ import MatrixContainer from '../../common/components/Matrix';
 import { Snake } from '../../common/types/snake';
 import { Matrix } from '../../common/types/matrix';
 import useInterval from '../../common/hooks/use-interval';
+import { right, bottom, left, top } from './utils';
 
 const ticker = 300;
 const size = 10;
@@ -21,9 +22,11 @@ const snakeInit: Snake = Array
       }
     }));
 
+
+
 const Home = () => {
   const [snake, setSnake] = useState<Snake>(snakeInit);
-  const [arrow, setArrow] = useState<'right' | 'bottom'>('right');
+  const [arrow, setArrow] = useState<'right' | 'bottom' | 'left' | 'top'>('right');
   const [run, setRun] = useState(true);
 
   useInterval(() => {
@@ -37,72 +40,19 @@ const Home = () => {
       }, [-1, -1]);
 
       if (arrow === 'right') {
-        return prev.map((col, i) => {
-          if (i === x) {
-            return col.map((row, j) => {
-              if (j === 0 && y === (col.length - 1)) {
-                return {
-                  position: 0
-                };
-              }
-              if (y === j) {
-                return {
-                  position: -1
-                };
-              }
-              if ((y + 1) === j) {
-                return {
-                  position: 0
-                };
-              }
-              return row;
-            });
-          }
-          return col;
-        })
+        return right(x, y, snake);
+      }
+
+      if (arrow === 'left') {
+        return left(x, y, snake);
       }
 
       if (arrow === 'bottom') {
-        return prev.map((col, i) => {
-          if (i === 0 && x === (prev.length - 1)) {
-            return col.map((row, j) => {
-              if (j === 0 && y === (col.length - 1)) {
-                return {
-                  position: 0
-                };
-              }
-              if (j === y) {
-                return {
-                  position: 0
-                };
-              }
-              return row;
-            })
-          }
+        return bottom(x, y, snake);
+      }
 
-          if (x === i) {
-            return col.map((row, j) => {
-              if (y === j) {
-                return {
-                  position: -1
-                };
-              }
-              return row;
-            });
-          }
-
-          if ((x + 1) === i) {
-            return col.map((row, j) => {
-              if (y === j) {
-                return {
-                  position: 0
-                };
-              }
-              return row;
-            });
-          }
-          return col;
-        })
+      if (arrow === 'top') {
+        return top(x, y, snake);
       }
 
       return prev;
@@ -114,8 +64,8 @@ const Home = () => {
       <button onClick={() => setRun((prev) => !prev)} >
         {run ? 'stop' : 'play'}
       </button>
-      <button onClick={() => setArrow((prev) => prev === 'bottom' ? 'right' : 'bottom')} >
-        {run ? 'right' : 'bottom'}
+      <button onClick={() => setArrow((prev) => prev === 'top' ? 'bottom' : 'top')} >
+        {run ? 'right' : 'left'}
       </button>
       <MatrixContainer
         size={size}
