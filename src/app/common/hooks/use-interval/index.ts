@@ -5,18 +5,15 @@ import { useEffect, useRef } from 'react';
 
 const noop = () => { };
 
-const useInterval = (
-  callback: () => void,
-  delay: number | null,
-) => {
-  const savedCallback = useRef(noop);
+const useInterval = (callback: () => void, delay: number | null) => {
+  const callbackRef = useRef(noop);
 
   useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
+    callbackRef.current = callback;
+  });
 
   useEffect(() => {
-    const tick = () => savedCallback.current();
+    const tick = () => callbackRef.current();
 
     if (delay !== null) {
       const id = setInterval(tick, delay);

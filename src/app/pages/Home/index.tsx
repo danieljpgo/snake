@@ -4,7 +4,8 @@ import MatrixContainer from '../../common/components/Matrix';
 import { Snake } from '../../common/types/snake';
 import { Matrix } from '../../common/types/matrix';
 import useInterval from '../../common/hooks/use-interval';
-import { right, bottom, left, top } from './utils';
+import { move } from './utils';
+import useKey from '../../common/hooks/use-Key';
 
 const ticker = 300;
 const size = 10;
@@ -22,12 +23,28 @@ const snakeInit: Snake = Array
       }
     }));
 
-
-
 const Home = () => {
   const [snake, setSnake] = useState<Snake>(snakeInit);
   const [arrow, setArrow] = useState<'right' | 'bottom' | 'left' | 'top'>('right');
   const [run, setRun] = useState(true);
+
+  // @TODO fazer funcionar apens para um EventListener
+
+  useKey(() => {
+    setArrow((prev) => prev !== 'bottom' ? 'top' : prev)
+  }, 'w');
+
+  useKey(() => {
+    setArrow((prev) => prev !== 'top' ? 'bottom' : prev)
+  }, 's');
+
+  useKey(() => {
+    setArrow((prev) => prev !== 'right' ? 'left' : prev)
+  }, 'a');
+
+  useKey(() => {
+    setArrow((prev) => prev !== 'left' ? 'right' : prev)
+  }, 'd');
 
   useInterval(() => {
     setSnake((prev) => {
@@ -39,23 +56,7 @@ const Home = () => {
         return acc;
       }, [-1, -1]);
 
-      if (arrow === 'right') {
-        return right(x, y, snake);
-      }
-
-      if (arrow === 'left') {
-        return left(x, y, snake);
-      }
-
-      if (arrow === 'bottom') {
-        return bottom(x, y, snake);
-      }
-
-      if (arrow === 'top') {
-        return top(x, y, snake);
-      }
-
-      return prev;
+      return move(arrow, x, y, snake);
     })
   }, (run ? ticker : null));
 

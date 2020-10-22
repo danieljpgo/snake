@@ -1,5 +1,5 @@
 export type Snake = Part[][];
 
-interface Part {
+export interface Part {
   position: number;
 }
