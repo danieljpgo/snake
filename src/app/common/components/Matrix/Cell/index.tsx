@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Container } from './styles';
+import { Status } from '../../../types/matrix';
 
 interface Props {
-  status: 'unfill' | 'fill' | 'snake'
+  status: Status
 }
 
 const Cell = (props: Props) => {
@@ -13,4 +14,4 @@ const Cell = (props: Props) => {
   );
 };
 
-export default Cell;
+export default memo(Cell);

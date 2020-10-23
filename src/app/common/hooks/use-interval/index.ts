@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 
 const noop = () => { };
 
-const useInterval = (callback: () => void, delay: number | null) => {
+export const useInterval = (callback: () => void, delay: number | null) => {
   const callbackRef = useRef(noop);
 
   useEffect(() => {
@@ -22,5 +22,3 @@ const useInterval = (callback: () => void, delay: number | null) => {
     return undefined;
   }, [delay]);
 };
-
-export default useInterval;

@@ -1,5 +1,5 @@
-import { Snake } from '../../common/types/snake';
-import { Direction } from '../../common/types/direction';
+import { Snake } from '../../../common/types/snake';
+import { Key } from '../../../common/types/direction';
 
 const left = (x: number, y: number, snake: Snake) =>
   snake.map((col, i) => {
@@ -137,22 +137,19 @@ const top = (x: number, y: number, snake: Snake) =>
     return col;
   });
 
+//@TODO improve the use of typing and enums
 
-export const move = (direction: Direction, x: number, y: number, snake: Snake) => {
+export const move = (direction: Key, x: number, y: number, snake: Snake) => {
   switch (direction) {
     case 'right':
       return right(x, y, snake);
-
     case 'left':
       return left(x, y, snake);
-
     case 'top':
       return top(x, y, snake);
-
     case 'bottom':
       return bottom(x, y, snake);
-
     default:
       return snake;
-  }
+  };
 };

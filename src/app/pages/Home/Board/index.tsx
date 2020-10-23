@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import MatrixContainer from '../../../common/components/Matrix';
-import { Direction } from '../../../common/types/direction';
-import useInterval from '../../../common/hooks/use-interval';
-import { move } from '../utils';
-// import { Container } from './styles';
-
+import { useInterval } from '../../../common/hooks/use-interval';
+import { Key } from '../../../common/types/direction';
 import { Snake } from '../../../common/types/snake';
 import { Matrix } from '../../../common/types/matrix';
+import { move } from './utils';
 
-const ticker = 300;
+const ticker = 310;
 const size = 10;
 const matrix: Matrix = Array
   .from({ length: size }, (_, k) => Array
@@ -26,12 +24,13 @@ const snakeInit: Snake = Array
 
 
 interface Props {
-  arrow: Direction
+  arrow: Key
 }
+
+//@TODO improve the use of typing and enums
 
 const Board = (props: Props) => {
   const { arrow } = props;
-
   const [snake, setSnake] = useState<Snake>(snakeInit);
   const [run, setRun] = useState(true);
 

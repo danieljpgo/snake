@@ -1,8 +1,8 @@
 import React from 'react';
-import CellContainer from './Cell';
+import Cell from './Cell';
 import { Container, Content } from './styles';
-import { Snake } from '../../types/snake';
 import { Matrix as MatrixType } from '../../types/matrix';
+import { Snake } from '../../types/snake';
 
 interface Props {
   size: number;
@@ -17,12 +17,12 @@ const Matrix = (props: Props) => {
     <Container $size={size}>
       {matrix.map((col, i) => (
         <Content
-          key={i}
+          key={`${i}`}
           $size={size}
         >
           {col.map((row, j) => (
-            <CellContainer
-              key={i + j}
+            <Cell
+              key={`${i}-${j}`}
               status={snake[i][j].position > -1 ? 'snake' : row.status}
             />
           ))}

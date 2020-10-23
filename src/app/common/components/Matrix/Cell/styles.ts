@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
+import { Status } from '../../../types/matrix';
 
 interface Props {
-  $status: 'unfill' | 'fill' | 'snake'
+  $status: Status
 }
 
 const color = {
@@ -17,6 +18,6 @@ const color = {
 }
 
 export const Container = styled.div<Props>`
-  ${(props) => color[props.$status]};
   border-radius: ${(props) => props.theme.shapes.borderRadius}px;
+  ${(props) => color[props.$status]};
 `;
