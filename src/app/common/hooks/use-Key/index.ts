@@ -1,24 +1,28 @@
 import { useEffect, useRef } from 'react'
 
-const useKey = (callback: (event: DocumentEventMap['keypress']) => void, key: string) => {
+const useKey = (callback: (event: DocumentEventMap['keypress']) => void, keys: ReadonlyArray<string>) => {
   const callbackRef = useRef(callback);
 
   useEffect(() => {
     callbackRef.current = callback;
   });
 
+  console.log(keys)
+
   useEffect(() => {
     const handle = (event: DocumentEventMap['keypress']) => {
-      if (event.key === key) {
+      if (keys.find((key) => key === event.key)) {
         callbackRef.current(event);
       }
     }
+
+    console.log('inside useeffect')
 
     document.addEventListener('keypress', handle);
     return () => (
       document.removeEventListener('keypress', handle)
     );
-  }, [key]);
+  }, [keys]);
 };
 
 export default useKey;
