@@ -1,51 +1,30 @@
 import React, { useState } from 'react';
-import MatrixContainer from '../../../common/components/Matrix';
+import MatrixContainer from './Matrix';
 import { useInterval } from '../../../common/hooks/use-interval';
-import { Key } from '../../../common/types/direction';
+import { Direction } from '../../../common/types/direction';
 import { Snake } from '../../../common/types/snake';
 import { Matrix } from '../../../common/types/matrix';
-import { move } from './utils';
-
-const ticker = 310;
-const size = 10;
-const matrix: Matrix = Array
-  .from({ length: size }, (_, k) => Array
-    .from({ length: size }, (_, x) => ({
-      status: 'unfill'
-    })));
-
-const snakeInit: Snake = Array
-  .from({ length: size }, (_, k) => Array
-    .from({ length: size }, (_, x) => {
-      return {
-        position: (x === size / 2 && k === size / 2) ? 0 : -1
-      }
-    }));
-
+import { move, positions } from './utils';
+import Score from './Score';
 
 interface Props {
-  arrow: Key
+  size: number,
+  snake: Snake,
+  ticker: number,
+  matrix: Matrix,
+  direction: Direction,
 }
 
-//@TODO improve the use of typing and enums
-
 const Board = (props: Props) => {
-  const { arrow } = props;
-  const [snake, setSnake] = useState<Snake>(snakeInit);
+  const { direction, matrix, ticker, size, snake: snakeDefault } = props;
+  const [snake, setSnake] = useState<Snake>(snakeDefault);
   const [run, setRun] = useState(true);
 
   useInterval(() => {
     setSnake((prev) => {
-      const [x, y] = prev.reduce((acc, value, i) => {
-        const head = value.findIndex((row) => row.position === 0);
-        if (head > -1) {
-          return [i, head];
-        }
-        return acc;
-      }, [-1, -1]);
-
-      return move(arrow, x, y, snake);
-    })
+      const [x, y] = positions(prev);
+      return move(direction, x, y, snake);
+    });
   }, (run ? ticker : null));
 
   return (
@@ -53,6 +32,8 @@ const Board = (props: Props) => {
       <button onClick={() => setRun((prev) => !prev)} >
         {run ? 'stop' : 'play'}
       </button>
+
+      <Score score={1} />
       <MatrixContainer
         size={size}
         matrix={matrix}

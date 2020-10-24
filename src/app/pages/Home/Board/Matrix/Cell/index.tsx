@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Container } from './styles';
-import { Status } from '../../../types/matrix';
+import { Status } from '../../../../../common/types/matrix';
 
 interface Props {
   status: Status

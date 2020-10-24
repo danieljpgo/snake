@@ -1,27 +1,39 @@
 import React, { useState } from 'react';
-import Board from './Board';
-import { Key } from '../../common/types/direction';
+import { matrixGenerator, snakeGenerator } from './utils';
+import { Direction, Keyboard } from '../../common/types/direction';
 import { useKey } from '../../common/hooks/use-Key';
 import { Container } from './styles';
+import Board from './Board';
+
+const size = 30;
+const ticker = 300;
+const matrix = matrixGenerator(size);
+const snake = snakeGenerator(size);
 
 const Home = () => {
-  const [arrow, setArrow] = useState<Key>('right');
+  const [direction, setDirection] = useState<Direction>('right');
 
-  //@TODO improve the use of typing and enums
   useKey((e) => {
-    if (e.key === 'w')
-      setArrow((prev) => prev !== 'bottom' ? 'top' : prev)
-    if (e.key === 's')
-      setArrow((prev) => prev !== 'top' ? 'bottom' : prev)
-    if (e.key === 'a')
-      setArrow((prev) => prev !== 'right' ? 'left' : prev)
-    if (e.key === 'd')
-      setArrow((prev) => prev !== 'left' ? 'right' : prev)
+    const key = e.key as Keyboard;
+    if (key === 'w')
+      setDirection((prev) => prev !== 'bottom' ? 'top' : prev)
+    if (key === 's')
+      setDirection((prev) => prev !== 'top' ? 'bottom' : prev)
+    if (key === 'a')
+      setDirection((prev) => prev !== 'right' ? 'left' : prev)
+    if (key === 'd')
+      setDirection((prev) => prev !== 'left' ? 'right' : prev)
   }, ['w', 'a', 's', 'd']);
 
   return (
     <Container>
-      <Board arrow={arrow} />
+      <Board
+        size={size}
+        snake={snake}
+        matrix={matrix}
+        ticker={ticker}
+        direction={direction}
+      />
     </Container>
   );
 }

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Status } from '../../../types/matrix';
+import { Status } from '../../../../../common/types/matrix';
 
 interface Props {
   $status: Status

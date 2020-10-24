@@ -5,9 +5,9 @@ const unit = 16;
 const theme = {
   unit,
   colors: {
-    snake: colors.green['100'],
+    snake: colors.green,
     cell: colors.black,
-    food: colors.purple['200'],
+    food: colors.purple,
     text: {
       base: colors.black,
     },
@@ -16,6 +16,6 @@ const theme = {
   shapes: {
     borderRadius: unit / 2,
   },
-};
+} as const;
 
 export default theme;

@@ -1,5 +1,5 @@
 import { Snake } from '../../../common/types/snake';
-import { Key } from '../../../common/types/direction';
+import { Direction } from '../../../common/types/direction';
 
 const left = (x: number, y: number, snake: Snake) =>
   snake.map((col, i) => {
@@ -137,9 +137,16 @@ const top = (x: number, y: number, snake: Snake) =>
     return col;
   });
 
-//@TODO improve the use of typing and enums
+export const positions = (matrix: Snake) => matrix.reduce((acc, value, i) => {
+  const head = value.findIndex((row) => row.position === 0);
 
-export const move = (direction: Key, x: number, y: number, snake: Snake) => {
+  if (head > -1) {
+    return [i, head];
+  }
+  return acc;
+}, [-1, -1]);
+
+export const move = (direction: Direction, x: number, y: number, snake: Snake) => {
   switch (direction) {
     case 'right':
       return right(x, y, snake);

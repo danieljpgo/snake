@@ -1,8 +1,8 @@
 import React from 'react';
 import Cell from './Cell';
 import { Container, Content } from './styles';
-import { Matrix as MatrixType } from '../../types/matrix';
-import { Snake } from '../../types/snake';
+import { Matrix as MatrixType } from '../../../../common/types/matrix';
+import { Snake } from '../../../../common/types/snake';
 
 interface Props {
   size: number;
