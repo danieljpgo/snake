@@ -1,5 +1,5 @@
-import { Snake } from '../../../common/types/snake';
-import { Direction } from '../../../common/types/direction';
+import { Snake } from '../../common/types/snake';
+import { Direction } from '../../common/types/direction';
 
 const left = (x: number, y: number, snake: Snake) =>
   snake.map((col, i) => {
@@ -137,16 +137,34 @@ const top = (x: number, y: number, snake: Snake) =>
     return col;
   });
 
-export const positions = (matrix: Snake) => matrix.reduce((acc, value, i) => {
-  const head = value.findIndex((row) => row.position === 0);
+const positions = (matrix: Snake) =>
+  matrix.reduce((acc, value, i) => {
+    const head = value.findIndex((row) => row.position === 0);
 
-  if (head > -1) {
-    return [i, head];
-  }
-  return acc;
-}, [-1, -1]);
+    if (head > -1) {
+      return [i, head];
+    }
+    return acc;
+  }, [-1, -1]);
 
-export const move = (direction: Direction, x: number, y: number, snake: Snake) => {
+const expand = (snake: Snake, direction: Direction) => {
+  const [x, y] = positions(snake);
+
+  switch (direction) {
+    case 'right':
+      return right(x, y, snake);
+    case 'left':
+      return left(x, y, snake);
+    case 'top':
+      return top(x, y, snake);
+    case 'bottom':
+      return bottom(x, y, snake);
+    default:
+      return snake;
+  };
+}
+
+const move = (direction: Direction, x: number, y: number, snake: Snake) => {
   switch (direction) {
     case 'right':
       return right(x, y, snake);
@@ -160,3 +178,9 @@ export const move = (direction: Direction, x: number, y: number, snake: Snake) =
       return snake;
   };
 };
+
+export const snake = {
+  move,
+  expand,
+  positions,
+}

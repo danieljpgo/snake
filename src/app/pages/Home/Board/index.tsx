@@ -4,7 +4,7 @@ import { useInterval } from '../../../common/hooks/use-interval';
 import { Direction } from '../../../common/types/direction';
 import { Snake } from '../../../common/types/snake';
 import { Matrix } from '../../../common/types/matrix';
-import { move, positions } from './utils';
+import { snake as snakeUtils } from '../../../common/utils/snake';
 import Score from './Score';
 
 interface Props {
@@ -13,23 +13,34 @@ interface Props {
   ticker: number,
   matrix: Matrix,
   direction: Direction,
+  onGenerateFood: (position: [number, number]) => void,
 }
 
 const Board = (props: Props) => {
-  const { direction, matrix, ticker, size, snake: snakeDefault } = props;
+  const {
+    direction,
+    matrix,
+    ticker,
+    size,
+    snake: snakeDefault,
+    onGenerateFood,
+  } = props;
   const [snake, setSnake] = useState<Snake>(snakeDefault);
-  const [run, setRun] = useState(true);
+  const [run, setRun] = useState(false);
 
   useInterval(() => {
+    // onGenerateFood(generators.food(size))
+
     setSnake((prev) => {
-      const [x, y] = positions(prev);
-      return move(direction, x, y, snake);
+      const [x, y] = snakeUtils.positions(prev);
+      return snakeUtils.move(direction, x, y, snake);
     });
   }, (run ? ticker : null));
 
   return (
     <div>
       <button onClick={() => setRun((prev) => !prev)} >
+        {/* <button onClick={() => setSnake((prev) => expand(prev, 'top'))} > */}
         {run ? 'stop' : 'play'}
       </button>
 

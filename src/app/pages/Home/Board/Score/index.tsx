@@ -15,4 +15,4 @@ const Score = (props: Props) => {
   );
 }
 
-export default Score;
+export default React.memo(Score);
