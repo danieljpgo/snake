@@ -7,7 +7,7 @@ import Board from './Board';
 import { Cell } from '../../common/types/matrix';
 
 const size = 10;
-const ticker = 300;
+const ticker = 1000;
 const matrixDefault = generators.matrix(size);
 const snake = generators.snake(size);
 

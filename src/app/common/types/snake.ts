@@ -1,5 +1,6 @@
-export type Snake = Part[][];
+export type Snake = Body[];
 
-export interface Part {
-  position: number;
+export type Body = {
+  x: number;
+  y: number;
 }

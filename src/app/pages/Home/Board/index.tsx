@@ -29,19 +29,20 @@ const Board = (props: Props) => {
   const [run, setRun] = useState(false);
 
   useInterval(() => {
-    // onGenerateFood(generators.food(size))
 
     setSnake((prev) => {
-      const [x, y] = snakeUtils.positions(prev);
-      return snakeUtils.move(direction, x, y, snake);
+      return snakeUtils.move(direction, prev, size);
     });
   }, (run ? ticker : null));
 
   return (
     <div>
       <button onClick={() => setRun((prev) => !prev)} >
-        {/* <button onClick={() => setSnake((prev) => expand(prev, 'top'))} > */}
         {run ? 'stop' : 'play'}
+      </button>
+
+      <button onClick={() => setSnake((prev) => snakeUtils.expand(prev, direction))} >
+        expand
       </button>
 
       <Score score={1} />
@@ -55,3 +56,7 @@ const Board = (props: Props) => {
 }
 
 export default Board;
+
+// {/* <button onClick={() => setSnake((prev) => expand(prev, 'top'))} > */}
+// const [x, y] = snakeUtils.positionHead(prev, direction);
+// onGenerateFood(generators.food(size))

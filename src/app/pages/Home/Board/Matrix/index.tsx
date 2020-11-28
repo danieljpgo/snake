@@ -13,6 +13,8 @@ interface Props {
 const Matrix = (props: Props) => {
   const { size, matrix, snake } = props;
 
+  console.log(snake)
+
   return (
     <Container $size={size}>
       {matrix.map((col, i) => (
@@ -23,7 +25,7 @@ const Matrix = (props: Props) => {
           {col.map((row, j) => (
             <Cell
               key={`${i}-${j}`}
-              status={snake[i][j].position > -1 ? 'snake' : row.status}
+              status={snake.find((position) => position.x === i && position.y === j) ? 'snake' : row.status}
             />
           ))}
         </Content>
