@@ -56,7 +56,3 @@ const Board = (props: Props) => {
 }
 
 export default Board;
-
-// {/* <button onClick={() => setSnake((prev) => expand(prev, 'top'))} > */}
-// const [x, y] = snakeUtils.positionHead(prev, direction);
-// onGenerateFood(generators.food(size))

@@ -9,8 +9,9 @@ const matrix = (size: number): Matrix => Array
 const snake = (size: number): Snake => {
   const middle = Math.round(size / 2)
   return [{
-    x: middle,
-    y: middle,
+    x: 0,
+    y: 3,
+    direction: 'right'
   }]
 }
 

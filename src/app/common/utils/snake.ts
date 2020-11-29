@@ -1,76 +1,380 @@
 import { Snake } from '../../common/types/snake';
 import { Direction } from '../../common/types/direction';
 
-const right = (snake: Snake, size: number): Snake =>
-  snake.map((body) => {
-    if (body.y === (size - 1)) {
+const right = (snake: Snake, direction: Direction, size: number): Snake => {
+  const firstIndex = 0;
+  const lastPosition = size - 1;
+
+  const snakeInverted = [...snake].reverse()
+
+  if (snakeInverted[firstIndex].direction !== direction) {
+    return [...snakeInverted.map((body, index) => {
+      if (index === firstIndex) {
+        return {
+          ...body,
+          y: body.y === lastPosition ? 0 : body.y + 1,
+          direction: direction,
+        }
+      }
       return {
-        x: body.x,
-        y: 0,
+        x: snakeInverted[index - 1].direction === 'bottom'
+          ? body.x === lastPosition
+            ? 0 : body.x + 1
+          : snakeInverted[index - 1].direction === 'top'
+            ? body.x === lastPosition
+              ? 0 : body.x - 1
+            : body.x,
+        y: snakeInverted[index - 1].direction === 'right'
+          ? body.y === lastPosition
+            ? 0 : body.y + 1
+          : snakeInverted[index - 1].direction === 'left'
+            ? body.y === lastPosition
+              ? 0 : body.y - 1
+            : body.y,
+        direction: snakeInverted[index - 1].direction,
+      }
+    })].reverse();
+  }
+
+
+  const newSnakeInverted = snakeInverted.map((body, index) => {
+    if (index === firstIndex) {
+      return {
+        ...body,
+        x: body.direction === 'bottom'
+          ? body.x === lastPosition
+            ? 0 : body.x + 1
+          : body.direction === 'top'
+            ? body.x === lastPosition
+              ? 0 : body.x - 1
+            : body.x,
+        y: body.direction === 'right'
+          ? body.y === lastPosition
+            ? 0 : body.y + 1
+          : body.direction === 'left'
+            ? body.y === lastPosition
+              ? 0 : body.y - 1
+            : body.y,
       }
     }
-
     return {
-      x: body.x,
-      y: body.y + 1,
+      x: snakeInverted[index - 1].direction === 'bottom'
+        ? body.x === lastPosition
+          ? 0 : body.x + 1
+        : snakeInverted[index - 1].direction === 'top'
+          ? body.x === lastPosition
+            ? 0 : body.x - 1
+          : body.x,
+      y: snakeInverted[index - 1].direction === 'right'
+        ? body.y === lastPosition
+          ? 0 : body.y + 1
+        : snakeInverted[index - 1].direction === 'left'
+          ? body.y === lastPosition
+            ? 0 : body.y - 1
+          : body.y,
+      direction: snakeInverted[index - 1].direction,
     }
   });
 
-const left = (snake: Snake, size: number): Snake =>
-  snake.map((body) => {
-    if (body.y === 0) {
+  return [...newSnakeInverted].reverse();
+}
+
+const left = (snake: Snake, direction: Direction, size: number): Snake => {
+  const firstIndex = 0;
+  const firstPosition = 0;
+  const lastPosition = size - 1;
+
+  const snakeInverted = [...snake].reverse()
+
+  if (snakeInverted[firstIndex].direction !== direction) {
+    return [...snakeInverted.map((body, index) => {
+      if (index === firstIndex) {
+        return {
+          ...body,
+          y: body.y === firstPosition ? lastPosition : body.y - 1,
+          direction: direction,
+        }
+      }
       return {
-        x: body.x,
-        y: size,
+        x: snakeInverted[index - 1].direction === 'bottom'
+          ? body.x === firstPosition
+            ? lastPosition : body.x + 1
+          : snakeInverted[index - 1].direction === 'top'
+            ? body.x === firstPosition
+              ? lastPosition : body.x - 1
+            : body.x,
+        y: snakeInverted[index - 1].direction === 'right'
+          ? body.y === firstPosition
+            ? lastPosition : body.y + 1
+          : snakeInverted[index - 1].direction === 'left'
+            ? body.y === firstPosition
+              ? lastPosition : body.y - 1
+            : body.y,
+        direction: snakeInverted[index - 1].direction,
+      }
+    })].reverse();
+  }
+
+  const newSnakeInverted = snakeInverted.map((body, index) => {
+    if (index === firstIndex) {
+      return {
+        ...body,
+        x: body.direction === 'bottom'
+          ? body.x === firstPosition
+            ? lastPosition : body.x + 1
+          : body.direction === 'top'
+            ? body.x === firstPosition
+              ? lastPosition : body.x - 1
+            : body.x,
+        y: body.direction === 'right'
+          ? body.y === firstPosition
+            ? lastPosition : body.y + 1
+          : body.direction === 'left'
+            ? body.y === firstPosition
+              ? lastPosition : body.y - 1
+            : body.y,
       }
     }
-
     return {
-      x: body.x,
-      y: body.y - 1,
+      x: snakeInverted[index - 1].direction === 'bottom'
+        ? body.x === firstPosition
+          ? lastPosition : body.x + 1
+        : snakeInverted[index - 1].direction === 'top'
+          ? body.x === firstPosition
+            ? lastPosition : body.x - 1
+          : body.x,
+      y: snakeInverted[index - 1].direction === 'right'
+        ? body.y === firstPosition
+          ? lastPosition : body.y + 1
+        : snakeInverted[index - 1].direction === 'left'
+          ? body.y === firstPosition
+            ? lastPosition : body.y - 1
+          : body.y,
+      direction: snakeInverted[index - 1].direction,
     }
   });
 
-const bottom = (snake: Snake, size: number): Snake =>
-  snake.map((body) => {
-    if (body.x === size) {
-      return {
-        x: 0,
-        y: body.y,
-      }
-    }
+  return [...newSnakeInverted].reverse();
+}
 
+const bottom = (snake: Snake, direction: Direction, size: number): Snake => {
+  const firstIndex = 0;
+  const lastPosition = size - 1;
+
+  const snakeInverted = [...snake].reverse()
+
+  if (snakeInverted[firstIndex].direction !== direction) {
+    return [...snakeInverted.map((body, index) => {
+      if (index === firstIndex) {
+        return {
+          ...body,
+          x: body.x === lastPosition ? 0 : body.x + 1,
+          direction: direction,
+        }
+      }
+      return {
+        x: snakeInverted[index - 1].direction === 'bottom'
+          ? body.x === lastPosition
+            ? 0 : body.x + 1
+          : snakeInverted[index - 1].direction === 'top'
+            ? body.x === lastPosition
+              ? 0 : body.x - 1
+            : body.x,
+        y: snakeInverted[index - 1].direction === 'right'
+          ? body.y === lastPosition
+            ? 0 : body.y + 1
+          : snakeInverted[index - 1].direction === 'left'
+            ? body.y === lastPosition
+              ? 0 : body.y - 1
+            : body.y,
+        direction: snakeInverted[index - 1].direction,
+      }
+    })].reverse();
+  }
+
+  const newSnakeInverted = snakeInverted.map((body, index) => {
+    if (index === firstIndex) {
+      return {
+        ...body,
+        x: body.direction === 'bottom'
+          ? body.x === lastPosition
+            ? 0 : body.x + 1
+          : body.direction === 'top'
+            ? body.x === lastPosition
+              ? 0 : body.x - 1
+            : body.x,
+        y: body.direction === 'right'
+          ? body.y === lastPosition
+            ? 0 : body.y + 1
+          : body.direction === 'left'
+            ? body.y === lastPosition
+              ? 0 : body.y - 1
+            : body.y,
+      };
+    }
     return {
-      x: body.x + 1,
-      y: body.y,
+      x: snakeInverted[index - 1].direction === 'bottom'
+        ? body.x === lastPosition
+          ? 0 : body.x + 1
+        : snakeInverted[index - 1].direction === 'top'
+          ? body.x === lastPosition
+            ? 0 : body.x - 1
+          : body.x,
+      y: snakeInverted[index - 1].direction === 'right'
+        ? body.y === lastPosition
+          ? 0 : body.y + 1
+        : snakeInverted[index - 1].direction === 'left'
+          ? body.y === lastPosition
+            ? 0 : body.y - 1
+          : body.y,
+      direction: snakeInverted[index - 1].direction,
+
     }
   });
 
-const top = (snake: Snake, size: number): Snake =>
-  snake.map((body) => {
-    if (body.x === 0) {
-      return {
-        x: size,
-        y: body.y,
-      }
-    }
+  return [...newSnakeInverted].reverse();
+}
 
+const top = (snake: Snake, direction: Direction, size: number): Snake => {
+  const firstIndex = 0;
+  const firstPosition = 0;
+  const lastPosition = size - 1;
+
+  const snakeInverted = [...snake].reverse()
+
+  if (snakeInverted[firstIndex].direction !== direction) {
+    return [...snakeInverted.map((body, index) => {
+      if (index === firstIndex) {
+        return {
+          ...body,
+          x: body.x === firstPosition ? lastPosition : body.x - 1,
+          direction: direction,
+        }
+      }
+      return {
+        x: snakeInverted[index - 1].direction === 'bottom'
+          ? body.x === firstPosition
+            ? lastPosition : body.x + 1
+          : snakeInverted[index - 1].direction === 'top'
+            ? body.x === firstPosition
+              ? lastPosition : body.x - 1
+            : body.x,
+        y: snakeInverted[index - 1].direction === 'right'
+          ? body.y === firstPosition
+            ? lastPosition : body.y + 1
+          : snakeInverted[index - 1].direction === 'left'
+            ? body.y === firstPosition
+              ? lastPosition : body.y - 1
+            : body.y,
+        direction: snakeInverted[index - 1].direction,
+      }
+    })].reverse();
+  }
+
+  const newSnakeInverted = snakeInverted.map((body, index) => {
+    if (index === firstIndex) {
+      return {
+        ...body,
+        x: body.direction === 'bottom'
+          ? body.x === firstPosition
+            ? lastPosition : body.x + 1
+          : body.direction === 'top'
+            ? body.x === firstPosition
+              ? lastPosition : body.x - 1
+            : body.x,
+        y: body.direction === 'right'
+          ? body.y === firstPosition
+            ? lastPosition : body.y + 1
+          : body.direction === 'left'
+            ? body.y === firstPosition
+              ? lastPosition : body.y - 1
+            : body.y,
+      };
+    }
     return {
-      x: body.x - 1,
-      y: body.y,
+      x: snakeInverted[index - 1].direction === 'bottom'
+        ? body.x === firstPosition
+          ? lastPosition : body.x + 1
+        : snakeInverted[index - 1].direction === 'top'
+          ? body.x === firstPosition
+            ? lastPosition : body.x - 1
+          : body.x,
+      y: snakeInverted[index - 1].direction === 'right'
+        ? body.y === firstPosition
+          ? lastPosition : body.y + 1
+        : snakeInverted[index - 1].direction === 'left'
+          ? body.y === firstPosition
+            ? lastPosition : body.y - 1
+          : body.y,
+      direction: snakeInverted[index - 1].direction,
+
     }
   });
+
+  return [...newSnakeInverted].reverse();
+
+  // const isAllDirectionsAreEqual = snake.filter((body) => body.direction === direction).length;
+  // if (isAllDirectionsAreEqual === snake.length) {
+  //   return snake.map((body) => ({
+  //     ...body,
+  //     x: body.x - 1,
+  //   }));
+  // }
+
+  // const lastDirectionFinded = snake.reduce((acc, body, i) => {
+  //   if (body.direction === direction) {
+  //     return i;
+  //   }
+  //   return acc;
+  // }, -1);
+
+  // if (lastDirectionFinded === -1) {
+  //   return snake.map((body, index) => {
+  //     if (index === 0) {
+  //       return {
+  //         ...body,
+  //         x: body.x - 1,
+  //         direction: direction,
+  //       }
+  //     }
+  //     return {
+  //       ...body,
+  //       y: body.direction === 'right' ? body.y + 1 : body.y - 1,
+  //     };
+  //   });
+  // }
+
+  // return snake.map((body, index) => {
+  //   if (index === (lastDirectionFinded + 1)) {
+  //     return {
+  //       ...body,
+  //       x: body.x - 1,
+  //       direction: direction,
+  //     }
+  //   }
+  //   if (body.direction === direction) {
+  //     return {
+  //       ...body,
+  //       x: body.x - 1,
+  //     }
+  //   }
+  //   return {
+  //     ...body,
+  //     y: body.direction === 'right' ? body.y + 1 : body.y - 1,
+  //   };
+  // });
+}
 
 const move = (direction: Direction, snake: Snake, size: number) => {
   switch (direction) {
     case 'right':
-      return right(snake, size);
+      return right(snake, direction, size);
     case 'left':
-      return left(snake, size);
+      return left(snake, direction, size);
     case 'top':
-      return top(snake, size);
+      return top(snake, direction, size);
     case 'bottom':
-      return bottom(snake, size);
+      return bottom(snake, direction, size);
     default:
       return snake;
   };
@@ -82,7 +386,8 @@ const expand = (snake: Snake, direction: Direction): Snake => {
       return [
         {
           x: snake[0].x,
-          y: snake[0].y - 1
+          y: snake[0].y - 1,
+          direction: snake[0].direction,
         },
         ...snake,
       ]
@@ -101,197 +406,3 @@ export const snake = {
   move,
   expand,
 }
-
-
-// const expand = (snake: Snake, direction: Direction) => {
-// const [x, y] = positionHead(snake, direction);
-
-// switch (direction) {
-//   case 'right':
-//     return right(x, y, snake);
-//   case 'left':
-//     return left(x, y, snake);
-//   case 'top':
-//     return top(x, y, snake);
-//   case 'bottom':
-//     return bottom(x, y, snake);
-//   default:
-// return snake;
-// };
-// }
-
-
-// const bottom = (x: number, y: number, snake: Snake) => {
-//   return snake.map((col, i) => {
-//     if (i > 0) {
-//       if (snake[i - 1][y].position === 0) {
-//         return col.map((_, j) => {
-//           if (j === y) {
-//             return {
-//               position: 0
-//             }
-//           }
-//           return {
-//             position: -1
-//           }
-//         });
-//       }
-
-//       return col.map((_, j) => {
-//         return {
-//           position: -1
-//         };
-//       });
-
-//     } else {
-//       if (snake[snake.length - 1][y].position === 0) {
-//         return col.map((_, j) => {
-//           if (j === y) {
-//             return {
-//               position: 0
-//             }
-//           }
-//           return {
-//             position: -1
-//           }
-//         });
-//       }
-
-//       return col.map((_, j) => {
-//         return {
-//           position: -1
-//         };
-//       });
-//     }
-//   })
-// };
-
-// const top = (x: number, y: number, snake: Snake) =>
-//   snake.map((col, i) => {
-//     if (i < snake.length - 1) {
-//       if (snake[i + 1][y].position === 0) {
-//         return col.map((_, j) => {
-//           if (j === y) {
-//             return {
-//               position: 0
-//             }
-//           }
-//           return {
-//             position: -1
-//           }
-//         });
-//       }
-
-//       return col.map((_, j) => {
-//         return {
-//           position: -1
-//         };
-//       });
-
-//     } else {
-//       if (snake[0][y].position === 0) {
-//         return col.map((_, j) => {
-//           if (j === y) {
-//             return {
-//               position: 0
-//             }
-//           }
-//           return {
-//             position: -1
-//           }
-//         });
-//       }
-
-//       return col.map((_, j) => {
-//         return {
-//           position: -1
-//         };
-//       });
-//     }
-//   });
-
-// retornar a cabeça da cobra
-// const positionHead = (matrix: Snake, direction: Direction) =>
-//   matrix.reduce((acc, value, i) => {
-//     if (direction === 'right') {
-//       // @TODO melhorar aqui
-
-//       const head = value.reduce((ac, valuee, j) => {
-//         if (valuee.position === 0) {
-//           return j
-//         }
-//         return ac;
-//       }, -1);
-
-//       if (head > -1) {
-//         return [i, head];
-//       }
-//       return acc;
-
-//     }
-
-//     const head = value.findIndex((row) => row.position === 0);
-//     if (head > -1) {
-//       return [i, head];
-//     }
-//     return acc;
-//   }, [-1, -1]);
-
-// const left = (x: number, y: number, snake: Snake) =>
-//   snake.map((col, i) => {
-//     if (i === x) {
-//       return col.map((_, j) => {
-//         if (j < col.length - 1) {
-//           if (col[j + 1].position === 0) {
-//             return {
-//               position: 0
-//             }
-//           }
-//           return {
-//             position: -1
-//           }
-//         } else {
-//           if (col[0].position === 0) {
-//             return {
-//               position: 0
-//             }
-//           }
-//           return {
-//             position: -1
-//           }
-//         }
-//       });
-//     }
-//     return col;
-//   });
-
-
-// const left = (snake: Snake): Snake =>
-//   snake.map((position, i) => [position[0], position[1] - 1]
-
-
-// if (x === i) {
-//   return col.map((_, j) => {
-//     if (j > 0) {
-//       if (col[j - 1].position === 0) {
-//         return {
-//           position: 0
-//         }
-//       }
-//       return {
-//         position: -1
-//       }
-//     } else {
-//       if (col[col.length - 1].position === 0) {
-//         return {
-//           position: 0
-//         }
-//       }
-//       return {
-//         position: -1
-//       }
-//     }
-//   });
-// }
-// return col;
-
