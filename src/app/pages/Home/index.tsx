@@ -7,7 +7,7 @@ import Board from './Board';
 import { Cell } from '../../common/types/matrix';
 
 const size = 10;
-const ticker = 100;
+const ticker = 300;
 const matrixDefault = generators.matrix(size);
 const snake = generators.snake(size);
 
@@ -27,26 +27,6 @@ const Home = () => {
       setDirection((prev) => prev !== 'left' ? 'right' : prev)
   }, ['w', 'a', 's', 'd']);
 
-  function handleAddFood(position: [number, number]) {
-    setMatrix((prev) => {
-
-      // adicionar regras para verificar se pode colocar a food nessa posição da matrix
-
-      const [j, i] = position;
-      const food: Cell = { status: 'fill' };
-
-      return prev.map((cells, index) => {
-        if (index === j) {
-          cells.map((cell, index2) => {
-            if (index2 === i) {
-              return food;
-            } return cell;
-          });
-        } return cells;
-      })
-    })
-  }
-
   return (
     <Container>
       <Board
@@ -55,7 +35,6 @@ const Home = () => {
         matrix={matrix}
         ticker={ticker}
         direction={direction}
-        onGenerateFood={(position) => handleAddFood(position)}
       />
     </Container>
   );

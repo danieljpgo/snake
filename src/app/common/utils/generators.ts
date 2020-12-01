@@ -9,17 +9,17 @@ const matrix = (size: number): Matrix => Array
 const snake = (size: number): Snake => {
   const middle = Math.round(size / 2)
   return [{
-    x: 0,
-    y: 3,
+    x: middle,
+    y: middle,
     direction: 'right'
   }]
 }
 
-const food = (size: number): [number, number] => {
-  const j = helpers.getRandomInt(0, size);
-  const i = helpers.getRandomInt(0, size);
-
-  return [j, i];
+const food = (size: number): { x: number, y: number } => {
+  return {
+    x: helpers.getRandomInt(0, size),
+    y: helpers.getRandomInt(0, size),
+  };
 };
 
 export const generators = {
@@ -27,23 +27,3 @@ export const generators = {
   matrix: matrix,
   food: food,
 }
-
-
-
-// Array
-// .from({ length: size }, (_, j) => Array
-// .from({ length: size }, (_, i) => {
-// if ((i === size / 2 && j === size / 2) || ((i + 1) === size / 2 && j === size / 2) || ((i + 1) === size / 2 && j === size / 2)) {
-// return {
-// position: 0
-// }
-// } return {
-// position: -1
-// }
-// 
-// return ({
-// position: (i === size / 2 && j === size / 2) ? 0 : -1
-// })
-// 
-// })
-// );

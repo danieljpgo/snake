@@ -8,10 +8,14 @@ interface Props {
   size: number;
   matrix: MatrixType;
   snake: Snake;
+  food: {
+    x: number;
+    y: number;
+  }
 }
 
 const Matrix = (props: Props) => {
-  const { size, matrix, snake } = props;
+  const { size, matrix, snake, food } = props;
 
   return (
     <Container $size={size}>
@@ -23,7 +27,7 @@ const Matrix = (props: Props) => {
           {col.map((row, j) => (
             <Cell
               key={`${i}-${j}`}
-              status={snake.find((position) => position.x === i && position.y === j) ? 'snake' : row.status}
+              status={snake.find((position) => position.x === i && position.y === j) ? 'snake' : (food.x === i && food.y === j) ? 'fill' : row.status}
             />
           ))}
         </Content>

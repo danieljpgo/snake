@@ -312,57 +312,6 @@ const top = (snake: Snake, direction: Direction, size: number): Snake => {
   });
 
   return [...newSnakeInverted].reverse();
-
-  // const isAllDirectionsAreEqual = snake.filter((body) => body.direction === direction).length;
-  // if (isAllDirectionsAreEqual === snake.length) {
-  //   return snake.map((body) => ({
-  //     ...body,
-  //     x: body.x - 1,
-  //   }));
-  // }
-
-  // const lastDirectionFinded = snake.reduce((acc, body, i) => {
-  //   if (body.direction === direction) {
-  //     return i;
-  //   }
-  //   return acc;
-  // }, -1);
-
-  // if (lastDirectionFinded === -1) {
-  //   return snake.map((body, index) => {
-  //     if (index === 0) {
-  //       return {
-  //         ...body,
-  //         x: body.x - 1,
-  //         direction: direction,
-  //       }
-  //     }
-  //     return {
-  //       ...body,
-  //       y: body.direction === 'right' ? body.y + 1 : body.y - 1,
-  //     };
-  //   });
-  // }
-
-  // return snake.map((body, index) => {
-  //   if (index === (lastDirectionFinded + 1)) {
-  //     return {
-  //       ...body,
-  //       x: body.x - 1,
-  //       direction: direction,
-  //     }
-  //   }
-  //   if (body.direction === direction) {
-  //     return {
-  //       ...body,
-  //       x: body.x - 1,
-  //     }
-  //   }
-  //   return {
-  //     ...body,
-  //     y: body.direction === 'right' ? body.y + 1 : body.y - 1,
-  //   };
-  // });
 }
 
 const move = (direction: Direction, snake: Snake, size: number) => {
@@ -390,13 +339,34 @@ const expand = (snake: Snake, direction: Direction): Snake => {
           direction: snake[0].direction,
         },
         ...snake,
+      ];
+    case 'bottom':
+      return [
+        {
+          x: snake[0].x - 1,
+          y: snake[0].y,
+          direction: snake[0].direction,
+        },
+        ...snake,
       ]
     case 'left':
-      return snake
+      return [
+        ...snake,
+        {
+          x: snake[snake.length - 1].x,
+          y: snake[snake.length - 1].y + 1,
+          direction: snake[snake.length - 1].direction,
+        },
+      ]
     case 'top':
-      return snake
-    case 'bottom':
-      return snake
+      return [
+        ...snake,
+        {
+          x: snake[snake.length - 1].x + 1,
+          y: snake[snake.length - 1].y,
+          direction: snake[snake.length - 1].direction,
+        },
+      ]
     default:
       return snake;
   };
