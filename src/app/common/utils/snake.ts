@@ -1,6 +1,7 @@
 import { Snake } from '../../common/types/snake';
 import { Direction } from '../../common/types/direction';
 
+
 const right = (snake: Snake, direction: Direction, size: number): Snake => {
   const firstIndex = 0;
   const lastPosition = size - 1;
