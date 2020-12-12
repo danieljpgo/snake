@@ -26,7 +26,7 @@ const Board = (props: Props) => {
   } = props;
   const [snake, setSnake] = useState<Snake>(snakeDefault);
   const [run, setRun] = useState(false);
-  const [food, setFood] = useState({ x: 0, y: 0 });
+  const [food, setFood] = useState(generators.food(size));
 
   useInterval(() => {
     setSnake((prev) => snakeUtils.move(direction, prev, size));
@@ -34,11 +34,11 @@ const Board = (props: Props) => {
 
 
   useEffect(() => {
-    const snakeHeadIndex = direction === 'top' || direction === 'left' ? 0 : snake.length - 1;
+    console.log(snake)
 
-    if (snake[snakeHeadIndex].y === food.y && snake[snakeHeadIndex].x === food.x) {
+    if (snake[snake.length - 1].y === food.y && snake[snake.length - 1].x === food.x) {
+      setSnake((prev) => snakeUtils.expand(prev, direction, size));
       setFood(generators.food(size))
-      setSnake((prev) => snakeUtils.expand(prev, direction));
     }
   }, [snake, direction, food, size])
 
@@ -49,7 +49,7 @@ const Board = (props: Props) => {
       </button>
 
       <button onClick={() => setSnake((prev) => {
-        return snakeUtils.expand(prev, direction)
+        return snakeUtils.expand(prev, direction, size)
       })
       }>
         expand

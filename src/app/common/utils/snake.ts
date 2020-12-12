@@ -329,13 +329,13 @@ const move = (direction: Direction, snake: Snake, size: number) => {
   };
 };
 
-const expand = (snake: Snake, direction: Direction): Snake => {
+const expand = (snake: Snake, direction: Direction, size: number): Snake => {
   switch (direction) {
     case 'right':
       return [
         {
           x: snake[0].x,
-          y: snake[0].y - 1,
+          y: snake[0].y === 0 ? size - 1 : snake[0].y - 1,
           direction: snake[0].direction,
         },
         ...snake,
@@ -343,7 +343,7 @@ const expand = (snake: Snake, direction: Direction): Snake => {
     case 'bottom':
       return [
         {
-          x: snake[0].x - 1,
+          x: snake[0].x === 0 ? size - 1 : snake[0].x - 1,
           y: snake[0].y,
           direction: snake[0].direction,
         },
@@ -351,21 +351,21 @@ const expand = (snake: Snake, direction: Direction): Snake => {
       ]
     case 'left':
       return [
-        ...snake,
         {
-          x: snake[snake.length - 1].x,
-          y: snake[snake.length - 1].y + 1,
-          direction: snake[snake.length - 1].direction,
+          x: snake[0].x,
+          y: snake[0].y === size - 1 ? 0 : snake[0].y + 1,
+          direction: snake[0].direction,
         },
+        ...snake,
       ]
     case 'top':
       return [
-        ...snake,
         {
-          x: snake[snake.length - 1].x + 1,
-          y: snake[snake.length - 1].y,
-          direction: snake[snake.length - 1].direction,
+          x: snake[0].x === size - 1 ? 0 : snake[0].x + 1,
+          y: snake[0].y,
+          direction: snake[0].direction,
         },
+        ...snake,
       ]
     default:
       return snake;

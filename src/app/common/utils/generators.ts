@@ -11,7 +11,8 @@ const snake = (size: number): Snake => {
   return [{
     x: middle,
     y: middle,
-    direction: 'right'
+    direction: 'right',
+    head: true,
   }]
 }
 
